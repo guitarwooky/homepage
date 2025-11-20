@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-brand-dark/95 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'
+        isScrolled ? 'bg-brand-dark/95 backdrop-blur-md py-4 shadow-lg border-b border-white/5' : 'bg-transparent py-6'
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
         <a 
           href="#home" 
           onClick={(e) => handleNavClick(e, '#home')}
-          className="text-2xl font-serif font-bold text-brand-gold tracking-wider cursor-pointer"
+          className="text-2xl font-serif font-bold text-brand-gold tracking-wider cursor-pointer hover:text-white transition-colors"
         >
           기타치는욱이
         </a>
@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
               key={link.name}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-sm uppercase tracking-widest text-brand-light hover:text-brand-gold transition-colors duration-300 cursor-pointer"
+              className="text-sm uppercase tracking-widest text-brand-light hover:text-brand-gold transition-colors duration-300 cursor-pointer font-medium"
             >
               {link.name}
             </a>
@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-brand-light focus:outline-none p-2"
+          className="md:hidden text-brand-light focus:outline-none p-2 hover:text-brand-gold transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="메뉴 열기"
         >
@@ -108,7 +108,7 @@ const Navbar: React.FC = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-brand-light hover:text-brand-gold transition-colors cursor-pointer py-2 block"
+                className="text-brand-light hover:text-brand-gold transition-colors cursor-pointer py-2 block font-medium"
                 onClick={(e) => handleNavClick(e, link.href)}
               >
                 {link.name}

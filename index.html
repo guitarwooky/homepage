@@ -38,6 +38,13 @@
 </script>
 </head>
   <body class="bg-brand-dark text-brand-light antialiased selection:bg-brand-gold selection:text-brand-dark">
-    <div id="root"></div>
+    <!-- Root container needs to be a block to allow full page scrolling -->
+    <div id="root">
+      <!-- Loading state only -->
+      <div class="fixed inset-0 flex items-center justify-center bg-brand-dark text-brand-gold z-50">
+        <div class="animate-pulse text-xl font-serif">기타치는욱이 로딩중...</div>
+      </div>
+    </div>
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>

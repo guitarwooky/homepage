@@ -38,14 +38,15 @@ const App: React.FC = () => {
         {/* About Section - Simple Layout */}
         <section id="about" className="py-24 bg-brand-charcoal border-y border-white/5 scroll-mt-20">
           <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 w-full">
+              {/* High quality Unsplash image for About section */}
               <img 
-                src="https://picsum.photos/seed/wookiportrait/600/600" 
-                alt="Wooki Guitar" 
-                className="rounded-2xl shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-700"
+                src="https://images.unsplash.com/photo-1445985543470-41fba5c3144a?q=80&w=800&auto=format&fit=crop" 
+                alt="Guitar Playing" 
+                className="rounded-2xl shadow-2xl border border-white/10 transition-all duration-700 hover:scale-[1.02] object-cover w-full h-auto aspect-[4/3] md:aspect-square"
               />
             </div>
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 w-full">
               <h2 className="text-4xl font-serif font-bold text-white mb-6">
                 아티스트 <span className="text-brand-gold">기타치는욱이</span>
               </h2>
