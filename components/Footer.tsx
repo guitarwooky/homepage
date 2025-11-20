@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { SOCIAL_LINKS } from '../constants';
 
@@ -7,7 +8,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 text-center">
         <div className="mb-8">
           <span className="text-2xl font-serif font-bold text-brand-gold tracking-wider">
-            WOOKI<span className="text-white">GUITAR</span>
+            기타치는욱이
           </span>
         </div>
         
@@ -27,7 +28,7 @@ const Footer: React.FC = () => {
         </div>
         
         <p className="text-gray-600 text-sm">
-          &copy; {new Date().getFullYear()} Wooki Guitar. All rights reserved. <br/>
+          &copy; {new Date().getFullYear()} 기타치는욱이. All rights reserved. <br/>
           음악은 인류의 보편적인 언어입니다.
         </p>
       </div>

@@ -19,7 +19,26 @@ const TabStore: React.FC = () => {
     e.preventDefault();
     if (formState.name && formState.phone && formState.address) {
       setIsSubmitted(true);
+      // For debugging/demo purposes
+      console.log("New Order:", formState);
     }
+  };
+
+  const handleSendEmail = () => {
+    const subject = `[교재 구매 신청] ${formState.name}님 주문서`;
+    const body = `
+[교재 구매 신청서]
+
+1. 성함: ${formState.name}
+2. 연락처: ${formState.phone}
+3. 배송지 주소: ${formState.address}
+4. 주문 내용: ${TEXTBOOK_INFO.title} (1권)
+5. 입금 예정 금액: ${(TEXTBOOK_INFO.price + TEXTBOOK_INFO.shipping).toLocaleString()}원
+
+* 입금 후 이 메일을 보내주시면 확인하여 발송해 드립니다.
+    `;
+    
+    window.location.href = `mailto:${SOCIAL_LINKS.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -106,7 +125,7 @@ const TabStore: React.FC = () => {
                 </h3>
                 <p className="text-gray-400 text-sm mb-6">
                   아래 정보를 입력해주시면 입금 계좌와 결제 정보를 안내해 드립니다.<br/>
-                  입력하신 정보는 <strong>비밀 댓글</strong> 형태로 본인에게만 표시됩니다.
+                  입력하신 정보는 <strong>비밀 댓글</strong> 형태로 처리됩니다.
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
@@ -163,13 +182,13 @@ const TabStore: React.FC = () => {
                 <div className="bg-brand-charcoal/50 border border-brand-gold/30 rounded-xl p-6 mb-6">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="text-xl">🔒</span>
-                    <h3 className="text-lg font-bold text-brand-gold">비밀 답글 (본인만 확인 가능)</h3>
+                    <h3 className="text-lg font-bold text-brand-gold">비밀 답글 (구매 안내)</h3>
                   </div>
                   
                   <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
                     <p>
                       안녕하세요, <span className="text-white font-bold">{formState.name}</span>님! <br/>
-                      <strong>&lt;{TEXTBOOK_INFO.title}&gt;</strong> 구매 신청이 접수되었습니다.
+                      <strong>&lt;{TEXTBOOK_INFO.title}&gt;</strong> 구매 신청 감사합니다.
                     </p>
                     <p>
                       아래 계좌로 입금해 주시면 확인 후<br/>
@@ -206,18 +225,26 @@ const TabStore: React.FC = () => {
                     </div>
 
                     <p className="text-gray-400 text-xs bg-white/5 p-3 rounded">
-                      * 입금 확인 후 순차적으로 발송되며, 발송 시 문자로 안내드립니다.<br/>
+                      * 입금 확인을 위해 아래 버튼을 눌러 <strong>주문서를 이메일로 보내주세요.</strong><br/>
                       * 궁금한 점은 언제든 네이버 밴드에 문의해주세요.
                     </p>
                   </div>
                 </div>
+
+                <button
+                  onClick={handleSendEmail}
+                  className="w-full mb-4 bg-brand-light text-brand-dark font-bold py-3 rounded-lg hover:bg-white transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                  📩 주문서 이메일로 보내기 (필수)
+                </button>
                 
                 <div className="text-center">
                    <a 
                       href={SOCIAL_LINKS.band}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 border border-brand-gold text-brand-gold rounded-full hover:bg-brand-gold hover:text-brand-dark transition-all font-medium"
+                      className="inline-flex items-center px-6 py-3 border border-brand-gold text-brand-gold rounded-full hover:bg-brand-gold hover:text-brand-dark transition-all font-medium text-sm"
                     >
                       네이버 밴드 방문하기
                     </a>

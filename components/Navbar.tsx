@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 
@@ -51,7 +52,7 @@ const Navbar: React.FC = () => {
           onClick={(e) => handleNavClick(e, '#home')}
           className="text-2xl font-serif font-bold text-brand-gold tracking-wider cursor-pointer"
         >
-          WOOKI<span className="text-brand-light">GUITAR</span>
+          기타치는욱이
         </a>
 
         {/* Desktop Menu */}
