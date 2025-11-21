@@ -19,15 +19,14 @@ const TabStore: React.FC = () => {
     e.preventDefault();
     if (formState.name && formState.phone && formState.address) {
       setIsSubmitted(true);
-      // For debugging/demo purposes
       console.log("New Order:", formState);
     }
   };
 
-  const handleSendEmail = () => {
+  const generateEmailContent = () => {
     const subject = `[교재 구매 신청] ${formState.name}님 주문서`;
     const body = `
-[교재 구매 신청서]
+[기타치는욱이 교재 구매 신청서]
 
 1. 성함: ${formState.name}
 2. 연락처: ${formState.phone}
@@ -35,10 +34,25 @@ const TabStore: React.FC = () => {
 4. 주문 내용: ${TEXTBOOK_INFO.title} (1권)
 5. 입금 예정 금액: ${(TEXTBOOK_INFO.price + TEXTBOOK_INFO.shipping).toLocaleString()}원
 
-* 입금 후 이 메일을 보내주시면 확인하여 발송해 드립니다.
+--------------------------------------------------
+* 위 내용은 자동으로 작성되었습니다.
+* [보내기] 버튼을 눌러 메일을 전송해 주셔야 접수가 완료됩니다.
+* 입금 확인 후 순차적으로 발송해 드립니다.
     `;
-    
-    window.location.href = `mailto:${SOCIAL_LINKS.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return { subject, body };
+  };
+
+  const handleSendGmail = () => {
+    const { subject, body } = generateEmailContent();
+    // Gmail Web compose URL using specific parameters
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${SOCIAL_LINKS.email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank');
+  };
+
+  const handleCopyAccount = () => {
+     navigator.clipboard.writeText(TEXTBOOK_INFO.accountNumber).then(() => {
+       alert("계좌번호가 복사되었습니다!");
+     });
   };
 
   return (
@@ -206,6 +220,9 @@ const TabStore: React.FC = () => {
                         <span className="text-gray-400">계좌번호</span>
                         <div className="flex items-center gap-2">
                           <span className="text-brand-gold font-mono font-bold tracking-wide text-lg">{TEXTBOOK_INFO.accountNumber}</span>
+                          <button onClick={handleCopyAccount} className="text-gray-500 hover:text-white p-1 rounded transition-colors" title="계좌번호 복사">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                          </button>
                         </div>
                       </div>
                       <div className="flex justify-between mb-3">
@@ -224,20 +241,28 @@ const TabStore: React.FC = () => {
                       </div>
                     </div>
 
-                    <p className="text-gray-400 text-xs bg-white/5 p-3 rounded">
-                      * 입금 확인을 위해 아래 버튼을 눌러 <strong>주문서를 이메일로 보내주세요.</strong><br/>
-                      * 궁금한 점은 언제든 네이버 밴드에 문의해주세요.
-                    </p>
+                    <div className="bg-red-500/10 border border-red-500/30 p-4 rounded text-red-200 text-xs font-bold flex flex-col gap-2">
+                      <div className="flex items-center gap-2 text-red-400 text-sm">
+                        <span className="text-lg">⚠️</span>
+                        <span>주문이 아직 완료되지 않았습니다!</span>
+                      </div>
+                      <p className="pl-6 font-normal text-gray-300">
+                        아래 <strong>[주문서 이메일로 보내기]</strong> 버튼을 눌러 메일을 보내주셔야만<br/>
+                        판매자에게 주문 정보가 전달됩니다.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <button
-                  onClick={handleSendEmail}
-                  className="w-full mb-4 bg-brand-light text-brand-dark font-bold py-3 rounded-lg hover:bg-white transition-colors flex items-center justify-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                  📩 주문서 이메일로 보내기 (필수)
-                </button>
+                <div className="grid grid-cols-1 gap-3 mb-6">
+                  <button
+                    onClick={handleSendGmail}
+                    className="w-full bg-brand-gold text-brand-dark font-bold py-4 rounded-lg hover:bg-white transition-all transform hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2 text-base"
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+                    주문서 이메일로 보내기 (Gmail)
+                  </button>
+                </div>
                 
                 <div className="text-center">
                    <a 

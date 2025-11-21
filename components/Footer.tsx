@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
           </span>
         </div>
         
-        <div className="flex justify-center items-center space-x-8 mb-8">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8 mb-8">
           <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-gold transition-colors flex items-center gap-2">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
             YouTube
@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
           </a>
           <a href={`mailto:${SOCIAL_LINKS.email}`} className="text-gray-400 hover:text-brand-gold transition-colors flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-            Email
+            {SOCIAL_LINKS.email}
           </a>
         </div>
         
